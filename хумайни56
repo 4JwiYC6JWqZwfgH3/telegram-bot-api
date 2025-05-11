@@ -1,0 +1,33 @@
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, CallbackContext
+
+# Вставьте сюда ваш токен
+TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
+
+# Команда /start
+def start(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text('Привет! Я твой хомячок-бот. Чем могу помочь?')
+
+# Команда /info
+def info(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text('Я могу рассказывать о хомячках и давать советы по уходу за ними.')
+
+# Основная функция
+def main() -> None:
+    updater = Updater(TOKEN)
+
+    # Получаем диспетчер для регистрации обработчиков
+    dispatcher = updater.dispatcher
+
+    # Регистрация команд
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(CommandHandler("info", info))
+
+    # Запуск бота
+    updater.start_polling()
+
+    # Ожидание завершения работы
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
